@@ -31,6 +31,6 @@ class HomeController extends Controller
 
     public function openings()
     {
-        return view('app.openings');
+        return view('app.openings.openings');
     }
 }

@@ -448,6 +448,36 @@ return [
                 ],
             ],
         ],
+        'Summernote' => [
+            'active' => true,
+            'files' => [
+                [
+                    'type' => 'css',
+                    'asset' => true,
+                    'location' => '/vendor/summernote/summernote-bs4.min.css',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => '/vendor/summernote/summernote-bs4.min.js',
+                ],
+            ],
+        ],
+        'Custom' => [
+            'active' => true,
+            'files' => [
+                [
+                    'type' => 'css',
+                    'asset' => true,
+                    'location' => '/css/admin-custom.css',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => '/js/admin-custom.js',
+                ],
+            ],
+        ],
     ],
 
     /*

@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Dashboard')
+@section('title', 'Openings')
 
 @section('content_header')
     <h1>Openings</h1>
@@ -10,6 +10,13 @@
     <div class="card">
         <div class="card-header">
             <h3 class="card-title">All Openings List</h3>
+            <div class="card-tools">
+                <ul class="nav nav-pills ml-auto">
+                    <li class="nav-item">
+                        <a class="btn btn-primary" href="{{ route('openings.add') }}">Add New</a>
+                    </li>
+                </ul>
+            </div>
         </div>
         <div class="card-body">
             <div class="table-responsive">

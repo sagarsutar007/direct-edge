@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Models\JobPost;
 use App\Models\Company;
+use Carbon\Carbon;
 
 class OpeningsController extends Controller
 {
@@ -57,8 +58,8 @@ class OpeningsController extends Controller
                 'vacancy_count' => $opening->vacancy_count,
                 'cost_to_company' => $opening->cost_to_company,
                 'type' => $opening->type,
-                'created_at' => $opening->created_at,
-                'updated_at' => $opening->updated_at,
+                'created_at' => '<span title="' . Carbon::parse($opening->created_at)->format('Y-m-d H:i A') . '">' . Carbon::parse($opening->created_at)->diffForHumans() . '</span>',
+                'updated_at' => '<span title="' . Carbon::parse($opening->updated_at)->format('Y-m-d H:i A') . '">' . Carbon::parse($opening->updated_at)->diffForHumans() . '</span>',
             ];
         }
         
@@ -74,16 +75,16 @@ class OpeningsController extends Controller
 
     public function destroy(JobPost $opening)
     {
-        if ( Gate::allows('admin', Auth::user()) || Gate::allows('delete-raw-material', Auth::user())) {
-            try {
-                $opening->delete();
-                return redirect()->route('openings')->with('success', 'Record deleted successfully');
-            } catch (\Exception $e) {
-                \Log::error('Error deleting record: ' . $e->getMessage());
-                return redirect()->route('openings')->with('error', 'An error occurred while deleting the record');
-            }
-        } else {
-            abort(403);
+        try {
+            $opening->delete();
+            return redirect()->route('openings')->with('success', 'Record deleted successfully');
+        } catch (\Exception $e) {
+            \Log::error('Error deleting record: ' . $e->getMessage());
+            return redirect()->route('openings')->with('error', 'An error occurred while deleting the record');
         }
+    }
+
+    public function add() {
+        return view('app.openings.add');
     }
 }
