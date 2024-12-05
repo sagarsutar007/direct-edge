@@ -3,7 +3,11 @@
 @section('title', 'Openings')
 
 @section('content_header')
-    <h1>Openings</h1>
+    <h1  class="d-inline-block">Openings</h1>
+    <ol class="breadcrumb float-sm-right">
+        <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+        <li class="breadcrumb-item active">Openings</li>
+    </ol>
 @stop
 
 @section('content')

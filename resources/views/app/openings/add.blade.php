@@ -3,7 +3,11 @@
 @section('title', 'Add New Opening')
 
 @section('content_header')
-    <h1>Add New Opening</h1>
+    <h1  class="d-inline-block">Add New Opening</h1>
+    <ol class="breadcrumb float-sm-right">
+        <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+        <li class="breadcrumb-item active">Add New Opening</li>
+    </ol>
 @stop
 
 @section('content')
@@ -29,10 +33,6 @@
                                             <option selected="selected">Alabama</option>
                                             <option>Steel Authority of India Limited</option>
                                             <option>Rourkela Institute of Management Studies</option>
-                                            <option>Delaware</option>
-                                            <option>Tennessee</option>
-                                            <option>Texas</option>
-                                            <option>Washington</option>
                                         </select>
                                     </div>
                                     <div class="form-group col-md-4">
