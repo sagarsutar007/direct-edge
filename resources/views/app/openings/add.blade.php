@@ -118,7 +118,8 @@
                     </div>
                     <!-- /.card-body -->
         
-                    <div class="card-footer">
+                    <div class="card-footer text-right">
+                        <button type="submit" class="btn btn-warning mr-2">Save as Draft</button>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </div>
                     
