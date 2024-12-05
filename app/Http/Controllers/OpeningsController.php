@@ -84,6 +84,12 @@ class OpeningsController extends Controller
         }
     }
 
+    public function fetchCompanies()
+    {
+        $companies = Company::select('company_id', 'name')->get();
+        return response()->json($companies);
+    }
+
     public function add() {
         return view('app.openings.add');
     }

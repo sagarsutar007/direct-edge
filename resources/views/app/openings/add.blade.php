@@ -29,10 +29,8 @@
                                 <div class="row">
                                     <div class="form-group col-md-4">
                                         <label>Company</label>
-                                        <select class="form-control select2" style="width: 100%;">
-                                            <option selected="selected">Alabama</option>
-                                            <option>Steel Authority of India Limited</option>
-                                            <option>Rourkela Institute of Management Studies</option>
+                                        <select class="form-control select2" id="companySelect" style="width: 100%;">
+                                            <option value="">Select Company</option>
                                         </select>
                                     </div>
                                     <div class="form-group col-md-4">
@@ -144,7 +142,18 @@
                     ['view', ['fullscreen', 'codeview', 'help']]
                 ]
             });
+
+
+            $.get('{{ route('companies.fetch') }}', function(data) {
+                let companySelect = $('#companySelect').empty().append('<option value="">Select Company</option>');
+                if (data.length) {
+                    data.forEach(company => companySelect.append(`<option value="${company.id}">${company.name}</option>`));
+                } else {
+                    companySelect.append('<option value="">No companies available</option>');
+                }
+            });
+
         });
     </script>
-
 @stop
+
