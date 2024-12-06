@@ -52,6 +52,7 @@ class JobPost extends Model
         'expiry_date',
         'status',
         'extra_configs',
+        'views'
     ];
 
     /**
@@ -72,8 +73,7 @@ class JobPost extends Model
     protected static function boot()
     {
         parent::boot();
-
-        // Automatically generate UUIDs for the primary key
+        
         static::creating(function ($model) {
             if (empty($model->job_post_id)) {
                 $model->job_post_id = (string) Str::uuid();

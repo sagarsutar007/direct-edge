@@ -9,7 +9,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'DirectEdge HR Services') }}</title>
+    <title>{{ $pageTitle ?? config('app.name', 'DirectEdge HR Services') }}</title>
 
     <!-- Favicon -->
     <link href="/img/favicon.ico" rel="icon">

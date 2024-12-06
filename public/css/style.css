@@ -330,7 +330,7 @@ h6,
     width: 100%;
 }
 
-.job-card, .filter-card {
+.job-card, .filter-card, .job-description, .job-featured, .company-details {
     border-radius: 1.25rem;
 }
 
@@ -425,4 +425,57 @@ h6,
 .job-card .job-footer .job-action a{
     background: rgba(255, 166, 0, 0.15);
     font-size: 14px;
+}
+
+.job-description .card-body {
+    padding: 15px;
+}
+
+.job-description .job-title {
+    font-size: 16px;
+    color: black;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.job-featured .card-header {
+    background-color: unset;
+}
+
+.featured-job-item {
+    border-bottom: 1px dashed #ececec;
+    margin-top: 10px;
+}
+
+.featured-job-item .featured-job-item-text{
+    font-size: 12px;
+    color: gray;
+    margin-bottom: 5px;
+}
+
+.featured-job-item .featured-job-item-rating{
+    font-size: 12px;
+    margin-bottom: 5px;
+}
+
+.featured-job-item .featured-job-item-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.featured-job-item .featured-job-item-meta .featured-job-item-location {
+    color:#000000;
+    font-size: 12px;
+}
+
+.featured-job-item .featured-job-item-meta .featured-job-item-location i{
+    color: gray;
+    font-size: 12px;
+}
+
+.featured-job-item .featured-job-item-meta .featured-job-item-date {
+    color: gray;
+    font-size: 12px;
 }

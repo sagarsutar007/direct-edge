@@ -9,6 +9,4 @@ class Company extends Model
     protected $primaryKey = 'company_id';
     public $incrementing = false;
     protected $keyType = 'string';
-
-    
 }
