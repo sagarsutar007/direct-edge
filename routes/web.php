@@ -23,7 +23,7 @@ Route::get('/certification-program', [WebController::class, 'certification'])->n
 Route::get('/jobs', [JobController::class, 'index'])->name('jobs');
 Route::get('/jobs/{slug}', [JobController::class, 'show'])->name('jobs.show');
 
-Auth::routes();
+Auth::routes(); 
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/app', [App\Http\Controllers\HomeController::class, 'index'])->name('app');
@@ -31,7 +31,12 @@ Route::get('/app/openings', [App\Http\Controllers\HomeController::class, 'openin
 
 
 Route::post('/app/fetch-openings', [App\Http\Controllers\OpeningsController::class, 'index'])->name('openings.fetchOpenings');
-Route::delete('app/delete-opening/{opening}', [OpeningsController::class, 'destroy'])->name('openings.destroy');
-Route::get('/app/companies', [App\Http\Controllers\OpeningsController::class, 'fetchCompanies'])->name('companies.fetch');
-Route::get('/app/add-openings', [App\Http\Controllers\OpeningsController::class, 'add'])->name('openings.add');
 
+Route::delete('app/delete-opening/{opening}', [OpeningsController::class, 'destroy'])->name('openings.destroy');
+
+Route::get('/app/companies', [App\Http\Controllers\OpeningsController::class, 'fetchCompanies'])->name('companies.fetch');
+
+Route::post('/app/add-opening', [App\Http\Controllers\OpeningsController::class, 'storeOpening'])->name('openings.store');
+
+
+Route::get('/app/add-openings', [App\Http\Controllers\OpeningsController::class, 'add'])->name('openings.add');
