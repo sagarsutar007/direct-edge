@@ -23,23 +23,25 @@
           <div class="row">
             <div class="col-lg-6">
               <div class="form-group">
-                <label for="textTitle">Job Title</label>
+                <label for="textTitle">Job Title <sup class="text-danger">*</sup></label>
                 <input type="text" class="form-control" id="textTitle" name="title" placeholder="Enter Job Title">
               </div>
               <div class="row">
-                <div class="form-group col-md-4">
-                  <label>Company</label>
-                  <select class="form-control select2" id="companySelect" name="company_id" style="width: 100%;">
-                    <option value="">Select Company</option>
-                  </select>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>Company</label>
+                    <select class="form-control select2" id="companySelect" name="company_id" style="width: 100%;">
+                      <option value=""></option>
+                    </select>
+                  </div>
                 </div>
                 <div class="form-group col-md-4">
                   <label for="jobPosition">No of Positions</label>
                   <input type="number" class="form-control" id="jobPosition" name="no_of_positions" placeholder="Enter No of Positions">
                 </div>
                 <div class="form-group col-md-4">
-                  <label for="jobType">Type</label>
-                  <select class="form-control select2" id="jobType" name="type" style="width: 100%;">
+                  <label for="jobType">Type <sup class="text-danger">*</sup></label>
+                  <select class="form-control select2" id="jobType" name="job_type" style="width: 100%;">
                     <option selected="selected">Work From Office</option>
                     <option>Hybrid</option>
                     <option>Remote</option>
@@ -49,17 +51,22 @@
               <div class="row">
                 <div class="form-group col-md-4">
                   <label for="costToCompany">Cost to Company</label>
-                  <input type="number" class="form-control" id="costToCompany" name="cost_to_company" placeholder="Enter CTC (e.g., 500000)">
+                  <input type="number" class="form-control" id="costToCompany" name="cost_to_company" placeholder="e.g 12-15Lakhs">
                 </div>
                 <div class="form-group col-md-4">
-                  <label for="timePeriod">Time Period</label>
-                  <input type="text" class="form-control" id="timePeriod" name="time_period" placeholder="Enter Time Period (e.g., 1 year)">
+                  <label for="timePeriod">Payment Term</label>
+                  <select class="form-control" id="timePeriod" name="time_period">
+                  <option value="Yearly">Yearly</option>
+                  <option value="Monthly" selected>Monthly</option>
+                  <option value="Weekly">Weekly</option>
+                  <option value="Daily">Daily</option>
+                  </select>
                 </div>
                 <div class="form-group col-md-4">
                   <label for="currency">Currency</label>
                   <select class="form-control select2" id="currency" name="currency" style="width: 100%;">
-                    <option selected="selected">USD</option>
-                    <option>INR</option>
+                    <option selected="selected">INR</option>
+                    <option>USD</option>
                     <option>EUR</option>
                     <option>GBP</option>
                     <option>AUD</option>
@@ -76,14 +83,22 @@
                   <input type="text" class="form-control" id="experience" name="experience" placeholder="Enter Required Experience (e.g., 2-3 years)">
                 </div>
                 <div class="form-group col-md-4">
-                  <label for="jobLocation">Location</label>
+                  <label for="jobLocation">Location <sup class="text-danger">*</sup></label>
                   <input type="text" class="form-control" id="jobLocation" name="location" placeholder="Enter Job Location">
                 </div>
               </div>
               <div class="row">
                 <div class="form-group col-md-4">
-                  <label for="vacancyCount">Vacancy Count</label>
-                  <input type="number" class="form-control" id="vacancyCount" name="vacancy_count" placeholder="Enter Vacancy Count">
+                  <label for="jobType">Job Type</label>
+                  <select name="job_type" id="jobType" class="form-control">
+                    <option value="Full-time">Full-time</option>
+                    <option value="Part-time">Part-time</option>
+                    <option value="Full-time, Contractual">Full-time, Contractual</option>
+                    <option value="Full-time, Permanent" selected>Full-time, Permanent</option>
+                    <option value="Part-time, Contractual">Part-time, Contractual</option>
+                    <option value="Part-time, Permanent">Part-time, Permanent</option>
+                    <option value="Other">Other</option>
+                  </select>
                 </div>
                 <div class="form-group col-md-4">
                   <label for="expiryDate">Expiry Date</label>
@@ -122,6 +137,26 @@
 @section('js')
 <script>
 $(document).ready(function() {
+  $('#companySelect').select2({
+      theme: 'bootstrap4',
+      placeholder: "Select a company",
+      ajax: {
+          url: "{{ route('companies.filter') }}",
+          dataType: 'json',
+          delay: 250,
+          processResults: function (data) {
+              return {
+                  results: data.map(company => ({
+                      id: company.company_id,
+                      text: company.name
+                  }))
+              };
+          },
+          cache: true
+      },
+      minimumInputLength: 1
+  });
+
   $('#jobDescription').summernote({
     height: 300,
     toolbar: [
@@ -130,20 +165,7 @@ $(document).ready(function() {
       ['fontname', ['fontname']],
       ['color', ['color']],
       ['para', ['ul', 'ol', 'paragraph']],
-      ['table', ['table']],
-      ['view', ['fullscreen', 'codeview', 'help']]
     ]
-  });
-
-  $.get('{{ route('companies.fetch') }}', function(data) {
-    let companySelect = $('#companySelect').empty().append('<option value="">Select Company</option>');
-    if (data.length) {
-      data.forEach(company => companySelect.append(
-        `<option value="${company.company_id}">${company.name}</option>`
-      ));
-    } else {
-      companySelect.append('<option value="">No companies available</option>');
-    }
   });
 
   $('#submitButton, #saveDraftButton').click(function(e) {
