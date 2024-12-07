@@ -41,7 +41,7 @@
                 </div>
                 <div class="form-group col-md-4">
                   <label for="jobType">Type <sup class="text-danger">*</sup></label>
-                  <select class="form-control select2" id="jobType" name="job_type" style="width: 100%;">
+                  <select class="form-control select2" id="jobType" name="type" style="width: 100%;">
                     <option selected="selected">Work From Office</option>
                     <option>Hybrid</option>
                     <option>Remote</option>
@@ -118,7 +118,7 @@
               <div class="card-body">
                 <div class="form-group">
                   <label for="jobDescription">Job Description</label>
-                  <textarea id="jobDescription" name="job_description" class="form-control"></textarea>
+                  <textarea id="jobDescription" name="description" class="form-control"></textarea>
                 </div>
               </div>
             </div>
