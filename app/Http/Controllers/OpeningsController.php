@@ -104,17 +104,17 @@ class OpeningsController extends Controller
         'title' => 'required|string|max:255',
         'company_id' => 'required|exists:companies,company_id',
         'no_of_positions' => 'nullable|integer',
-        'job_type' => 'nullable|string',
-        'cost_to_company' => 'nullable|numeric',
-        'time_period' => 'nullable|string',
-        'currency' => 'nullable|string',
+        'type' => 'required|string',
+        'cost_to_company' => 'required|numeric',
+        'time_period' => 'required|string',
+        'currency' => 'required|string',
         'reference' => 'nullable|string',
-        'experience' => 'nullable|string',
-        'location' => 'nullable|string',
-        'vacancy_count' => 'nullable|integer',
-        'expiry_date' => 'nullable|date',
-        'status' => 'nullable|string',
-        'job_description' => 'nullable|string'
+        'experience' => 'required|string',
+        'location' => 'required|string',
+        'vacancy_count' => 'required|integer',
+        'expiry_date' => 'required|date',
+        'status' => 'required|string',
+        'description' => 'required|string'
     ]);
 
     $validatedData['slug'] = Str::slug($validatedData['title'], '-');
