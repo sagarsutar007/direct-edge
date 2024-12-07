@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\JobPost;
 use App\Models\Company;
 use Carbon\Carbon;
+use Illuminate\Support\Str;
+
 
 class OpeningsController extends Controller
 {
@@ -95,43 +97,31 @@ class OpeningsController extends Controller
         return view('app.openings.add');
     }
 
-    public function storeOpening(Request $request)
-    {
-        
-        $validatedData = $request->validate([
-            'job_title'       => 'required|string|max:255',
-            'company_id'      => 'required|exists:companies,company_id',
-            'no_of_positions' => 'required|integer',
-            'job_type'        => 'required|string',
-            'cost_to_company' => 'required|numeric',
-            'time_period'     => 'required|string',
-            'currency'        => 'required|string',
-            'reference'       => 'nullable|string',
-            'experience'      => 'nullable|string',
-            'job_location'    => 'nullable|string',
-            'vacancy_count'   => 'required|integer',
-            'expiry_date'     => 'required|date',
-            'job_status'      => 'required|string',
-            'job_description' => 'required|string',
-        ]);
+    public function store(Request $request)
+{
+   
+    $validatedData = $request->validate([
+        'title' => 'required|string|max:255',
+        'company_id' => 'required|exists:companies,company_id',
+        'no_of_positions' => 'nullable|integer',
+        'job_type' => 'nullable|string',
+        'cost_to_company' => 'nullable|numeric',
+        'time_period' => 'nullable|string',
+        'currency' => 'nullable|string',
+        'reference' => 'nullable|string',
+        'experience' => 'nullable|string',
+        'location' => 'nullable|string',
+        'vacancy_count' => 'nullable|integer',
+        'expiry_date' => 'nullable|date',
+        'status' => 'nullable|string',
+        'job_description' => 'nullable|string'
+    ]);
 
-        $opening = Opening::create([
-            'job_title'       => $validatedData['job_title'],
-            'company_id'      => $validatedData['company_id'],
-            'no_of_positions' => $validatedData['no_of_positions'],
-            'job_type'        => $validatedData['job_type'],
-            'cost_to_company' => $validatedData['cost_to_company'],
-            'time_period'     => $validatedData['time_period'],
-            'currency'        => $validatedData['currency'],
-            'reference'       => $validatedData['reference'],
-            'experience'      => $validatedData['experience'],
-            'job_location'    => $validatedData['job_location'],
-            'vacancy_count'   => $validatedData['vacancy_count'],
-            'expiry_date'     => $validatedData['expiry_date'],
-            'job_status'      => $validatedData['job_status'],
-            'job_description' => $validatedData['job_description'],
-        ]);
+    $validatedData['slug'] = Str::slug($validatedData['title'], '-');
+    
+    $jobPost = JobPost::create($validatedData);
 
-        return response()->json(['message' => 'Opening added successfully!', 'opening' => $opening], 200);
-    }
+   
+    return redirect()->route('openings')->with('success', 'Job opening created successfully');
+}
 }

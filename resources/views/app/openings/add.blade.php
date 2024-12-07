@@ -17,31 +17,29 @@
       <div class="card-header">
         <h3 class="card-title">Fill Up Form</h3>
       </div>
-      <!-- /.card-header -->
-      <!-- form start -->
       <div class="card-body">
-        <form id="openingForm">
+        <form id="openingForm" action="{{ route('openings.store') }}" method="POST">
           @csrf
           <div class="row">
             <div class="col-lg-6">
               <div class="form-group">
                 <label for="textTitle">Job Title</label>
-                <input type="text" class="form-control" id="textTitle" placeholder="Enter Job Title">
+                <input type="text" class="form-control" id="textTitle" name="title" placeholder="Enter Job Title">
               </div>
               <div class="row">
                 <div class="form-group col-md-4">
                   <label>Company</label>
-                  <select class="form-control select2" id="companySelect" style="width: 100%;">
+                  <select class="form-control select2" id="companySelect" name="company_id" style="width: 100%;">
                     <option value="">Select Company</option>
                   </select>
                 </div>
                 <div class="form-group col-md-4">
                   <label for="jobPosition">No of Positions</label>
-                  <input type="number" class="form-control" id="jobPosition" placeholder="Enter No of Positions">
+                  <input type="number" class="form-control" id="jobPosition" name="no_of_positions" placeholder="Enter No of Positions">
                 </div>
                 <div class="form-group col-md-4">
-                  <label for="jobPosition">Type</label>
-                  <select class="form-control select2" style="width: 100%;">
+                  <label for="jobType">Type</label>
+                  <select class="form-control select2" id="jobType" name="job_type" style="width: 100%;">
                     <option selected="selected">Work From Office</option>
                     <option>Hybrid</option>
                     <option>Remote</option>
@@ -51,15 +49,15 @@
               <div class="row">
                 <div class="form-group col-md-4">
                   <label for="costToCompany">Cost to Company</label>
-                  <input type="number" class="form-control" id="costToCompany" placeholder="Enter CTC (e.g., 500000)">
+                  <input type="number" class="form-control" id="costToCompany" name="cost_to_company" placeholder="Enter CTC (e.g., 500000)">
                 </div>
                 <div class="form-group col-md-4">
                   <label for="timePeriod">Time Period</label>
-                  <input type="text" class="form-control" id="timePeriod" placeholder="Enter Time Period (e.g., 1 year)">
+                  <input type="text" class="form-control" id="timePeriod" name="time_period" placeholder="Enter Time Period (e.g., 1 year)">
                 </div>
                 <div class="form-group col-md-4">
                   <label for="currency">Currency</label>
-                  <select class="form-control select2" id="currency" style="width: 100%;">
+                  <select class="form-control select2" id="currency" name="currency" style="width: 100%;">
                     <option selected="selected">USD</option>
                     <option>INR</option>
                     <option>EUR</option>
@@ -71,37 +69,32 @@
               <div class="row">
                 <div class="form-group col-md-4">
                   <label for="reference">Reference</label>
-                  <input type="text" class="form-control" id="reference" placeholder="Enter Reference Name or Details">
+                  <input type="text" class="form-control" id="reference" name="reference" placeholder="Enter Reference Name or Details">
                 </div>
-
                 <div class="form-group col-md-4">
                   <label for="experience">Experience</label>
-                  <input type="text" class="form-control" id="experience"
-                    placeholder="Enter Required Experience (e.g., 2-3 years)">
+                  <input type="text" class="form-control" id="experience" name="experience" placeholder="Enter Required Experience (e.g., 2-3 years)">
                 </div>
                 <div class="form-group col-md-4">
                   <label for="jobLocation">Location</label>
-                  <input type="text" class="form-control" id="jobLocation" placeholder="Enter Job Location">
+                  <input type="text" class="form-control" id="jobLocation" name="location" placeholder="Enter Job Location">
                 </div>
               </div>
               <div class="row">
-
                 <div class="form-group col-md-4">
                   <label for="vacancyCount">Vacancy Count</label>
-                  <input type="number" class="form-control" id="vacancyCount" placeholder="Enter Vacancy Count">
+                  <input type="number" class="form-control" id="vacancyCount" name="vacancy_count" placeholder="Enter Vacancy Count">
                 </div>
-
                 <div class="form-group col-md-4">
                   <label for="expiryDate">Expiry Date</label>
-                  <input type="date" class="form-control" id="expiryDate">
+                  <input type="date" class="form-control" id="expiryDate" name="expiry_date">
                 </div>
-
                 <div class="form-group col-md-4">
                   <label for="jobStatus">Status</label>
-                  <select class="form-control select2" id="jobStatus" style="width: 100%;">
-                    <option selected="selected">Active</option>
-                    <option>Inactive</option>
+                  <select class="form-control select2" id="jobStatus" name="status" style="width: 100%;">
+                    <option selected="selected">Open</option>
                     <option>Closed</option>
+                    <option>Expired</option>
                   </select>
                 </div>
               </div>
@@ -110,24 +103,20 @@
               <div class="card-body">
                 <div class="form-group">
                   <label for="jobDescription">Job Description</label>
-                  <textarea id="jobDescription" class="form-control"></textarea>
+                  <textarea id="jobDescription" name="job_description" class="form-control"></textarea>
                 </div>
               </div>
             </div>
           </div>
         </form>
       </div>
-      <!-- /.card-body -->
-
       <div class="card-footer text-right">
-        <button type="submit" class="btn btn-warning mr-2" id="saveDraftButton">Save as Draft</button>
+        <button class="btn btn-warning mr-2" id="saveDraftButton">Save as Draft</button>
         <button type="submit" class="btn btn-primary" id="submitButton">Submit</button>
       </div>
-
     </div>
   </div>
 </div>
-
 @stop
 
 @section('js')
@@ -157,36 +146,35 @@ $(document).ready(function() {
     }
   });
 
-  $('#openingForm').submit(function(e) {
-      e.preventDefault();
-      console.log("Form submitted");
-      alert("Submit button clicked!");
+  $('#submitButton, #saveDraftButton').click(function(e) {
+    e.preventDefault();
+    
+    // Update Summernote content before form submission
+    $('#jobDescription').val($('#jobDescription').summernote('code'));
+    
+    // Gather form data
+    var formData = new FormData($('#openingForm')[0]);
 
-      var formData = $(this).serialize();
-      console.log(formData);
-
-      $.ajax({
-          url: '{{ route('openings.store') }}',
-          type: 'POST',
-          data: formData,
-          success: function(response) {
-
-              console.log(response);
-              alert(response.message);
-
-              $('#openingForm')[0].reset();
-              $('#companySelect').val('').trigger('change');
-          },
-          error: function(xhr, status, error) {
-
-            alert("Something went wrong. Please try again.");
-              console.log(error);
-          }
-      });
+    $.ajax({
+      url: '{{ route('openings.store') }}',
+      type: 'POST',
+      data: formData,
+      processData: false,
+      contentType: false,
+      success: function(response) {
+        window.location.href = '{{ route('openings') }}';
+      },
+      error: function(xhr, status, error) {
+        if (xhr.responseJSON && xhr.responseJSON.errors) {
+          var errorMessages = Object.values(xhr.responseJSON.errors).flat();
+          alert(errorMessages.join('\n'));
+        } else {
+          alert("Something went wrong. Please try again.");
+        }
+        console.error(xhr.responseText);
+      }
+    });
   });
-
-
 });
 </script>
-
 @stop

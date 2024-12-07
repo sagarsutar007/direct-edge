@@ -36,7 +36,8 @@ Route::delete('app/delete-opening/{opening}', [OpeningsController::class, 'destr
 
 Route::get('/app/companies', [App\Http\Controllers\OpeningsController::class, 'fetchCompanies'])->name('companies.fetch');
 
-Route::post('/app/add-opening', [App\Http\Controllers\OpeningsController::class, 'storeOpening'])->name('openings.store');
+Route::post('/app/openings/store', [App\Http\Controllers\OpeningsController::class, 'store'])->name('openings.store');
+
 
 
 Route::get('/app/add-openings', [App\Http\Controllers\OpeningsController::class, 'add'])->name('openings.add');
