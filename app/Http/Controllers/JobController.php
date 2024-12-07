@@ -13,6 +13,8 @@ class JobController extends Controller
     {
         $query = JobPost::with('company');
 
+        $totalJobs = $query->count();
+
         $jobs = $query->paginate(15);
 
         $title = 'Current Openings';
@@ -21,7 +23,7 @@ class JobController extends Controller
             ['name' => 'Current Openings'],
         ];
 
-        return view('jobs.index', compact('title', 'breadcrumbs', 'jobs'));
+        return view('jobs.index', compact('title', 'breadcrumbs', 'jobs', 'totalJobs'));
     }
 
     public function show($slug)

@@ -268,7 +268,7 @@
                 <div class="col-md-8 col-lg-9 order-1 order-md-2 order-lg-2">
                     <div class="row mb-3">
                         <div class="col-7 col-md-8 col-lg-9">
-                            Total 990 Jobs Found
+                        Total {{ $totalJobs }} Jobs Found
                         </div>
                         <div class="col-5 col-md-4 col-lg-3 text-end">
                             <div class="dropdown">
@@ -291,9 +291,11 @@
                                         <div class="job-head">
                                             <div class="job-title">{{ $job->title }}</div>
                                             <div class="d-flex align-items-center justify-content-start">
-                                                <div class="job-company">{{ $job->company ? ($job->company->shortcode ?? $job->company->name ?? '') : '' }}</div>
-                                                <div class="job-company-rating ms-2">
-                                                    <i class="fas fa-star text-warning"></i> {{ $job->company ? ($job->company->rating ?? '0') : '0' }}
+                                                <div class="job-company" style="{{ !$job->company || empty($job->company->name) ? 'visibility: hidden;' : '' }}">
+                                                    {{ $job->company->shortcode ?? $job->company->name ?? '' }}
+                                                </div>
+                                                <div class="job-company-rating ms-2" style="{{ !$job->company || empty($job->company->rating) ? 'visibility: hidden;' : '' }}">
+                                                <i class="fas fa-star text-warning"></i> {{ $job->company ? ($job->company->rating ?? '0') : '0' }}
                                                 </div>
                                             </div>
                                         </div>

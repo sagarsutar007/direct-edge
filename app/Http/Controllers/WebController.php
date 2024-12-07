@@ -11,8 +11,7 @@ class WebController extends Controller
     public function index()
     {
         $sliders = Slider::where('status', '1')->get();
-        // dd($sliders);
-
+       
         return view('homepage', compact('sliders'));
     }
 }

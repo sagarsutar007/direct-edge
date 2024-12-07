@@ -12,8 +12,10 @@
                                 <div class="job-head">
                                     <div class="job-title">{{ $job->title }}</div>
                                     <div class="d-flex align-items-center justify-content-start">
-                                        <div class="job-company">{{ $job->company ? $job->company->name : "" }}</div>
-                                        <div class="job-company-rating ms-2">
+                                        <div class="job-company" style="{{ !$job->company || empty($job->company->name) ? 'visibility: hidden;' : '' }}">
+                                            {{ $job->company ? $job->company->name : '' }}
+                                        </div>
+                                        <div class="job-company-rating ms-2" style="{{ !$job->company || empty($job->company->rating) ? 'visibility: hidden;' : '' }}">
                                             <i class="fas fa-star text-warning"></i> {{ $job->company ? ($job->company->rating ?? '0') : '0' }}
                                         </div>
                                     </div>

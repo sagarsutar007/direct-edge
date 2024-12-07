@@ -26,7 +26,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $totalJobs = JobPost::count();
+
+        return view('home', compact('totalJobs'));
     }
 
     public function openings()
