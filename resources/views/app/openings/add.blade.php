@@ -135,6 +135,26 @@
 @section('js')
 <script>
 $(document).ready(function() {
+  $('#companySelect').select2({
+      placeholder: "Select a company",
+      allowClear: true,
+      ajax: {
+          url: "{{ route('companies.fetch') }}",
+          dataType: 'json',
+          delay: 250,
+          processResults: function (data) {
+              return {
+                  results: data.map(company => ({
+                      id: company.company_id,
+                      text: company.name
+                  }))
+              };
+          },
+          cache: true
+      },
+      minimumInputLength: 3
+  });
+
   $('#jobDescription').summernote({
     height: 300,
     toolbar: [
@@ -145,6 +165,8 @@ $(document).ready(function() {
       ['para', ['ul', 'ol', 'paragraph']],
     ]
   });
+
+
 
   $.get('{{ route('companies.fetch') }}', function(data) {
     let companySelect = $('#companySelect').empty().append('<option value="">Select Company</option>');
