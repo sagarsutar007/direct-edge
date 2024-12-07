@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WebController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\OpeningsController;
+use App\Http\Controllers\CompaniesController;
 
 Route::get('/', [WebController::class, 'index'])->name('homepage');
 Route::get('/about-us', [WebController::class, 'about'])->name('about');
@@ -34,7 +35,7 @@ Route::post('/app/fetch-openings', [App\Http\Controllers\OpeningsController::cla
 
 Route::delete('app/delete-opening/{opening}', [OpeningsController::class, 'destroy'])->name('openings.destroy');
 
-Route::get('/app/companies', [App\Http\Controllers\OpeningsController::class, 'fetchCompanies'])->name('companies.fetch');
+Route::get('/app/filter-companies', [App\Http\Controllers\CompaniesController::class, 'filter'])->name('companies.filter');
 
 Route::post('/app/openings/store', [App\Http\Controllers\OpeningsController::class, 'store'])->name('openings.store');
 

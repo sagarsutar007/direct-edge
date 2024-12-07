@@ -86,11 +86,7 @@ class OpeningsController extends Controller
         }
     }
 
-    public function fetchCompanies()
-    {
-        $companies = Company::select('company_id', 'name')->get();
-        return response()->json($companies);
-    }
+    
 
 
     public function add() {
@@ -98,30 +94,30 @@ class OpeningsController extends Controller
     }
 
     public function store(Request $request)
-{
-   
-    $validatedData = $request->validate([
-        'title' => 'required|string|max:255',
-        'company_id' => 'required|exists:companies,company_id',
-        'no_of_positions' => 'nullable|integer',
-        'type' => 'required|string',
-        'cost_to_company' => 'required|numeric',
-        'time_period' => 'required|string',
-        'currency' => 'required|string',
-        'reference' => 'nullable|string',
-        'experience' => 'required|string',
-        'location' => 'required|string',
-        'vacancy_count' => 'required|integer',
-        'expiry_date' => 'required|date',
-        'status' => 'required|string',
-        'description' => 'required|string'
-    ]);
-
-    $validatedData['slug'] = Str::slug($validatedData['title'], '-');
+    {
     
-    $jobPost = JobPost::create($validatedData);
+        $validatedData = $request->validate([
+            'title' => 'required|string|max:255',
+            'company_id' => 'required|exists:companies,company_id',
+            'no_of_positions' => 'nullable|integer',
+            'type' => 'required|string',
+            'cost_to_company' => 'required|numeric',
+            'time_period' => 'required|string',
+            'currency' => 'required|string',
+            'reference' => 'nullable|string',
+            'experience' => 'required|string',
+            'location' => 'required|string',
+            'vacancy_count' => 'required|integer',
+            'expiry_date' => 'required|date',
+            'status' => 'required|string',
+            'description' => 'required|string'
+        ]);
 
-   
-    return redirect()->route('openings')->with('success', 'Job opening created successfully');
-}
+        $validatedData['slug'] = Str::slug($validatedData['title'], '-');
+        
+        $jobPost = JobPost::create($validatedData);
+
+    
+        return redirect()->route('openings')->with('success', 'Job opening created successfully');
+    }
 }

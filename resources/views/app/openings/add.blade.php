@@ -27,11 +27,13 @@
                 <input type="text" class="form-control" id="textTitle" name="title" placeholder="Enter Job Title">
               </div>
               <div class="row">
-                <div class="form-group col-md-4">
-                  <label>Company</label>
-                  <select class="form-control select2" id="companySelect" name="company_id" style="width: 100%;">
-                    <option value="">Select Company</option>
-                  </select>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>Company</label>
+                    <select class="form-control select2" id="companySelect" name="company_id" style="width: 100%;">
+                      <option value=""></option>
+                    </select>
+                  </div>
                 </div>
                 <div class="form-group col-md-4">
                   <label for="jobPosition">No of Positions</label>
@@ -136,10 +138,10 @@
 <script>
 $(document).ready(function() {
   $('#companySelect').select2({
+      theme: 'bootstrap4',
       placeholder: "Select a company",
-      allowClear: true,
       ajax: {
-          url: "{{ route('companies.fetch') }}",
+          url: "{{ route('companies.filter') }}",
           dataType: 'json',
           delay: 250,
           processResults: function (data) {
@@ -152,7 +154,7 @@ $(document).ready(function() {
           },
           cache: true
       },
-      minimumInputLength: 3
+      minimumInputLength: 1
   });
 
   $('#jobDescription').summernote({
@@ -164,19 +166,6 @@ $(document).ready(function() {
       ['color', ['color']],
       ['para', ['ul', 'ol', 'paragraph']],
     ]
-  });
-
-
-
-  $.get('{{ route('companies.fetch') }}', function(data) {
-    let companySelect = $('#companySelect').empty().append('<option value="">Select Company</option>');
-    if (data.length) {
-      data.forEach(company => companySelect.append(
-        `<option value="${company.company_id}">${company.name}</option>`
-      ));
-    } else {
-      companySelect.append('<option value="">No companies available</option>');
-    }
   });
 
   $('#submitButton, #saveDraftButton').click(function(e) {
