@@ -39,7 +39,7 @@
                 </div>
                 <div class="form-group col-md-4">
                   <label for="jobType">Type</label>
-                  <select class="form-control select2" id="jobType" name="job_type" style="width: 100%;">
+                  <select class="form-control select2" id="jobType" name="type" style="width: 100%;">
                     <option selected="selected">Work From Office</option>
                     <option>Hybrid</option>
                     <option>Remote</option>
