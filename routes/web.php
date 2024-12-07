@@ -6,6 +6,7 @@ use App\Http\Controllers\WebController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\OpeningsController;
 use App\Http\Controllers\SliderController;
+use App\Http\Controllers\FeedbackController;
 
 use App\Http\Controllers\CompaniesController;
 
@@ -53,3 +54,13 @@ Route::get('/app/sliders/{slider}/edit', [SliderController::class, 'edit'])->nam
 Route::post('/app/sliders/{slider}/update', [SliderController::class, 'update'])->name('sliders.update');
 Route::delete('/{slider}', [SliderController::class, 'destroy'])->name('sliders.destroy');
 Route::delete('/app/sliders/images/{image}', [SliderController::class, 'deleteImage'])->name('image.delete');
+
+
+Route::get('/app/feedbacks', [FeedbackController::class, 'index'])->name('feedbacks');
+Route::get('/app/feedbacks/create', [FeedbackController::class, 'create'])->name('feedbacks.create');
+Route::post('/app/feedbacks/store', [FeedbackController::class, 'store'])->name('feedbacks.store');
+Route::post('/app/feedbacks/save', [FeedbackController::class, 'save'])->name('feedbacks.save');
+Route::get('/app/feedbacks/{feedback}/edit', [FeedbackController::class, 'edit'])->name('feedbacks.edit');
+Route::post('/app/feedbacks/{feedback}/update', [FeedbackController::class, 'update'])->name('feedbacks.update');
+Route::delete('/app/feedbacks/{feedback}', [FeedbackController::class, 'destroy'])->name('feedbacks.destroy');
+Route::post('/app/feedbacks/search', [FeedbackController::class, 'search'])->name('feedbacks.search');

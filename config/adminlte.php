@@ -330,6 +330,11 @@ return [
             'url' => 'app/candidates',
             'icon' => 'fa fa-fw fa-users',
         ],
+        [
+            'text' => 'Feedbacks',
+            'url' => 'app/feedbacks',
+            'icon' => 'fas fa-fw fa-clipboard-list'
+        ],
         ['header' => 'account_settings'],
         [
             'text' => 'profile',
