@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WebController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\OpeningsController;
+use App\Http\Controllers\SliderController;
+
 
 Route::get('/', [WebController::class, 'index'])->name('homepage');
 Route::get('/about-us', [WebController::class, 'about'])->name('about');
@@ -41,3 +43,12 @@ Route::post('/app/openings/store', [App\Http\Controllers\OpeningsController::cla
 
 
 Route::get('/app/add-openings', [App\Http\Controllers\OpeningsController::class, 'add'])->name('openings.add');
+
+
+Route::get('/app/sliders', [SliderController::class, 'index'])->name('sliders');
+Route::get('/app/sliders/create', [SliderController::class, 'create'])->name('sliders.create');
+Route::post('/app/sliders/store', [SliderController::class, 'store'])->name('sliders.store');
+Route::get('/app/sliders/{slider}/edit', [SliderController::class, 'edit'])->name('sliders.edit');
+Route::post('/app/sliders/{slider}/update', [SliderController::class, 'update'])->name('sliders.update');
+Route::delete('/{slider}', [SliderController::class, 'destroy'])->name('sliders.destroy');
+Route::delete('/app/sliders/images/{image}', [SliderController::class, 'deleteImage'])->name('image.delete');

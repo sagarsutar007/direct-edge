@@ -2,44 +2,44 @@
 
 @section('content')
     <!-- Carousel Start -->
-    <div class="container-fluid p-0">
+    @if ($sliders->isNotEmpty())
         <div id="header-carousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
             <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <img class="w-100" src="/img/carousel-1.jpg" alt="Image">
-                    <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
-                        <div class="p-3" style="max-width: 900px;">
-                            <h5 class="text-white text-uppercase">Business Consultancy</h5>
-                            <h1 class="display-1 text-white mb-md-4">We Provide Solution On Your Business</h1>
-                            <a href="#" class="btn btn-orange py-md-3 px-md-5 me-3 rounded-pill">Get Quote</a>
-                            <a href="#" class="btn btn-secondary py-md-3 px-md-5 rounded-pill">Contact Us</a>
+                @foreach ($sliders as $slider)
+                    <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
+                        <img class="w-100" src="{{ asset('img/' . $slider->slider_img) }}" alt="{{ $slider->title }}">
+                        <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+                            <div class="p-3" style="max-width: 900px;">
+                                <h5 class="text-white text-uppercase">{{ $slider->title }}</h5>
+                                <h1 class="display-1 text-white mb-md-4">{{ $slider->description }}</h1>
+                                @if ($slider->primary_button_text)
+                                    <a href="{{ $slider->primary_button_link }}" class="btn btn-orange py-md-3 px-md-5 me-3 rounded-pill">
+                                        {{ $slider->primary_button_text }}
+                                    </a>
+                                @endif
+                                @if ($slider->secondary_button_text)
+                                    <a href="{{ $slider->secondary_button_link }}" class="btn btn-secondary py-md-3 px-md-5 rounded-pill">
+                                        {{ $slider->secondary_button_text }}
+                                    </a>
+                                @endif
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="carousel-item">
-                    <img class="w-100" src="/img/carousel-2.jpg" alt="Image">
-                    <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
-                        <div class="p-3" style="max-width: 900px;">
-                            <h5 class="text-white text-uppercase">Business Consultancy</h5>
-                            <h1 class="display-1 text-white mb-md-4">Take Our Help To Reach The Top Level</h1>
-                            <a href="#" class="btn btn-orange py-md-3 px-md-5 me-3 rounded-pill">Get Quote</a>
-                            <a href="#" class="btn btn-secondary py-md-3 px-md-5 rounded-pill">Contact Us</a>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#header-carousel"
-                data-bs-slide="prev">
+            <button class="carousel-control-prev" type="button" data-bs-target="#header-carousel" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Previous</span>
             </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#header-carousel"
-                data-bs-slide="next">
+            <button class="carousel-control-next" type="button" data-bs-target="#header-carousel" data-bs-slide="next">
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Next</span>
             </button>
         </div>
-    </div>
+    @else
+        <p>No sliders available.</p>
+    @endif
+
     <!-- Carousel End -->
 
     @include('partials.about')
